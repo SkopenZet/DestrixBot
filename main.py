@@ -86,21 +86,21 @@ async def start_questionnaire(message: Message, state: FSMContext):
 @dp.message(Questionnaire.waiting_for_nickname)
 async def process_nickname(message: Message, state: FSMContext):
     await state.update_data(nickname=message.text)
-    await message.answer("Как тебя зовут?")
+    await message.answer("Как вас зовут?")
     await state.set_state(Questionnaire.waiting_for_name)
 
 
 @dp.message(Questionnaire.waiting_for_name)
 async def process_name(message: Message, state: FSMContext):
     await state.update_data(name=message.text)
-    await message.answer("Сколько тебе лет?")
+    await message.answer("Сколько вам лет?")
     await state.set_state(Questionnaire.waiting_for_age)
 
 
 @dp.message(Questionnaire.waiting_for_age)
 async def process_age(message: Message, state: FSMContext):
     await state.update_data(age=message.text)
-    await message.answer("Как ты узнал о нашем сервере?")
+    await message.answer("Как вы узнали о нашем сервере?")
     await state.set_state(Questionnaire.waiting_for_source)
 
 
@@ -141,12 +141,12 @@ async def process_about(message: Message, state: FSMContext):
 
     # Красивый пост с новыми пунктами 5 и 6
     post_text = (
-        f"📝 **Новая анкетка — #{q_number}**\n"
-        f"🆔 **Уникальный ID:** `{user_id}`\n"
+        f"📝 **Новая анкета — #{q_number}**\n"
+        f"🆔 **ID - игрока:** `{user_id}`\n"
         f"🌐 **Юзернейм:** {username}\n"
         f"👤 **Автор:** {message.from_user.mention_markdown()}\n\n"
         f"📋 **Анкета:**\n"
-        f"🎮 **Игровой ник:** {user_data['nickname']}\n"
+        f"🎮 **Игровой никнейм:** {user_data['nickname']}\n"
         f"1️⃣ **Имя:** {user_data['name']}\n"
         f"2️⃣ **Возраст:** {user_data['age']}\n"
         f"3️⃣ **Как узнал о сервере:** {user_data['source']}\n"
@@ -162,7 +162,7 @@ async def process_about(message: Message, state: FSMContext):
             parse_mode="Markdown",
             reply_markup=get_admin_keyboard(user_id)
         )
-        await message.answer("🎉 Твоя анкета успешно отправлена на рассмотрение в канал!",
+        await message.answer("🎉 Ваша анкета отправлена на рассмотрение!",
                              reply_markup=get_start_keyboard())
     except Exception as e:
         await message.answer(
@@ -185,7 +185,7 @@ async def handle_accept(callback: CallbackQuery):
     try:
         await bot.send_message(
             chat_id=target_user_id,
-            text="🎉 **Отличные новости!** Твоя анкета была успешно рассмотрена и **принята**! Добро пожаловать на наш server! 🙌"
+            text="🎉 Отличные новости! Ваша анкета была рассматрена, вы приняты! Добро пожаловать на DestrixNetwork! 🙌"
         )
         await callback.answer("Пользователь уведомлён о принятии!", show_alert=True)
     except Exception:
@@ -204,7 +204,7 @@ async def handle_reject(callback: CallbackQuery):
     try:
         await bot.send_message(
             chat_id=target_user_id,
-            text="❌ К сожалению, твоя анкета была **отклонена** после рассмотрения администрацией. Убедись, что всё заполнено грамотно и подробно."
+            text="❌ К сожалению, ваша анкета была рассмотрена, вы не приняты. С уважением команда проекта DestrixNetwork."
         )
         await callback.answer("Пользователь уведомлён об отказе!", show_alert=True)
     except Exception:
@@ -216,7 +216,7 @@ async def handle_reject(callback: CallbackQuery):
 
 
 async def main():
-    print("Бот успешно запущен с новыми пунктами правил...")
+    print("Бот успешно запущен...")
     await dp.start_polling(bot)
 
 
