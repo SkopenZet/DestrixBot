@@ -10,7 +10,7 @@ from aiogram.fsm.state import State, StatesGroup
 
 # =====================================================================
 # НАСТРОЙКИ: ТВОИ ДАННЫЕ УЖЕ ТУТ!
-TOKEN = "8720636662:AAH4iWwlbF8HsZV72UIfBAjqc7I8rHruBOQ"  # Не забудь вставить свой токен обратно!
+TOKEN = os.getenv("BOT_TOKEN")
 CHANNEL_USERNAME = "@dxnk_admin"
 COUNTER_FILE = "counter.txt"
 # =====================================================================
